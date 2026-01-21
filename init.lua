@@ -284,6 +284,19 @@ require('lazy').setup({
         changedelete = { text = '~' },
         untracked = { text = '┆' },
       },
+      current_line_blame = true,
+      on_attach = function(bufnr)
+        local gitsigns = require 'gitsigns'
+
+        local function map(mode, l, r, opts)
+          opts = opts or {}
+          opts.buffer = bufnr
+          vim.keymap.set(mode, l, r, opts)
+        end
+
+        map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = '[T]oggle Current Line Git [B]lame' })
+        map('n', '<leader>gb', gitsigns.blame, { desc = '[G]it [B]lame' })
+      end,
     },
   },
 
@@ -349,6 +362,7 @@ require('lazy').setup({
       spec = {
         { '<leader>s', group = '[S]earch' },
         { '<leader>t', group = '[T]oggle' },
+        { '<leader>g', group = '[G]it' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       },
     },
