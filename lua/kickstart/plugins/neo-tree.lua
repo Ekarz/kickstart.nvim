@@ -22,4 +22,9 @@ return {
       },
     },
   },
+  config = function()
+    vim.keymap.set('n', '<leader>eb', '<Cmd>Neotree buffers<CR>', { desc = 'Buffers' })
+    vim.keymap.set('n', '<leader>ee', '<Cmd>Neotree filesystem left toggle reveal<CR>', { desc = 'Tree' })
+    vim.keymap.set('n', '<leader>es', '<Cmd>Neotree git_status float<CR>', { desc = 'Git Status' })
+  end,
 }
