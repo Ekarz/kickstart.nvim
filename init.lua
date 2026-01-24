@@ -907,6 +907,22 @@ require('lazy').setup({
           shade = 'dark',
           percentage = 0.15, -- percentage of the shade to apply to the inactive window
         },
+        highlight_overrides = {
+          all = function(colors)
+            return {
+              -- Function = { fg = colors.yellow },
+              Operator = { fg = colors.yellow },
+              Type = { fg = colors.sapphire },
+              Constant = {
+                fg = colors.text,
+                style = { 'italic' },
+              },
+              ['@attribute'] = { fg = colors.teal },
+              ['@variable.parameter'] = { fg = colors.pink },
+              ['@module'] = { fg = colors.rosewater },
+            }
+          end,
+        },
       }
 
       -- Load the colorscheme here.
