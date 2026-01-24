@@ -933,6 +933,38 @@ require('lazy').setup({
     end,
   },
 
+  {
+    'feline-nvim/feline.nvim',
+    config = function()
+      local ctp_feline = require 'catppuccin.special.feline'
+
+      ctp_feline.setup {
+        sett = {
+          show_modified = true,
+        },
+        view = {
+          lsp = {
+            name = true,
+          },
+        },
+      }
+
+      local feline_components = ctp_feline.get_statusline()
+      table.remove(feline_components.active[3], 4)
+      table.insert(feline_components.inactive, {})
+      table.insert(feline_components.inactive[2], {
+        provider = function()
+          local filename = vim.fn.expand '%:t'
+          return ' ' .. filename .. ' '
+        end,
+      })
+
+      require('feline').setup {
+        components = feline_components,
+      }
+    end,
+  },
+
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
@@ -957,17 +989,17 @@ require('lazy').setup({
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
       --  and try some other statusline plugin
-      local statusline = require 'mini.statusline'
+      -- local statusline = require 'mini.statusline'
       -- set use_icons to true if you have a Nerd Font
-      statusline.setup { use_icons = vim.g.have_nerd_font }
+      -- statusline.setup { use_icons = vim.g.have_nerd_font }
 
       -- You can configure sections in the statusline by overriding their
       -- default behavior. For example, here we set the section for
       -- cursor location to LINE:COLUMN
       ---@diagnostic disable-next-line: duplicate-set-field
-      statusline.section_location = function()
-        return '%2l:%-2v'
-      end
+      -- statusline.section_location = function()
+      --   return '%2l:%-2v'
+      -- end
 
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
