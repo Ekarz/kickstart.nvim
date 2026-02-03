@@ -382,7 +382,7 @@ require('lazy').setup({
         { '<leader>t', group = '[T]oggle' },
         { '<leader>g', group = '[G]it' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
-        { '<leader>e', group = 'Neotree', mode = { 'n', 'v' } },
+        { '<leader>e', group = 'Trees', mode = { 'n', 'v' } },
       },
     },
   },
@@ -1051,6 +1051,26 @@ require('lazy').setup({
   },
   {
     'nvim-treesitter/nvim-treesitter-context',
+  },
+
+  {
+    'nvim-neotest/neotest',
+    dependencies = {
+      'nvim-neotest/nvim-nio',
+      'nvim-lua/plenary.nvim',
+      'antoinemadec/FixCursorHold.nvim',
+      'nvim-treesitter/nvim-treesitter',
+      'nvim-neotest/neotest-python',
+    },
+    config = function()
+      require('neotest').setup {
+        adapters = {
+          require 'neotest-python',
+        },
+      }
+
+      vim.keymap.set('n', '<leader>et', '<cmd>Neotest summary<CR>', { desc = '[T]ests' })
+    end,
   },
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
