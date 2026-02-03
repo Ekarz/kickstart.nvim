@@ -969,7 +969,6 @@ require('lazy').setup({
       }
 
       local feline_components = ctp_feline.get_statusline()
-      table.remove(feline_components.active[3], 4)
       table.insert(feline_components.inactive, {})
       table.insert(feline_components.inactive[2], {
         provider = function()
