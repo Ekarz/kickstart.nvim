@@ -310,6 +310,14 @@ require('lazy').setup({
   },
 
   {
+    'ruifm/gitlinker.nvim',
+    dependencies = 'nvim-lua/plenary.nvim',
+    config = function()
+      require('gitlinker').setup()
+    end,
+  },
+
+  {
     'Bekaboo/dropbar.nvim',
     -- optional, but required for fuzzy finder support
     dependencies = {
