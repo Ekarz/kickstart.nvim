@@ -1073,10 +1073,10 @@ require('lazy').setup({
     'mfussenegger/nvim-dap',
     config = function()
       local dap = require 'dap'
-      vim.keymap.set('n', '<C-Down', dap.step_over)
-      vim.keymap.set('n', '<C-Right', dap.step_into)
-      vim.keymap.set('n', '<C-Left', dap.step_out)
-      vim.keymap.set('n', '<C-Up', dap.restart_frame)
+      vim.keymap.set('n', '<C-Down>', dap.step_over)
+      vim.keymap.set('n', '<C-Right>', dap.step_into)
+      vim.keymap.set('n', '<C-Left>', dap.step_out)
+      vim.keymap.set('n', '<C-Up>', dap.restart_frame)
     end,
   },
   {
