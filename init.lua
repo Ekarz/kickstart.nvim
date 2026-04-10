@@ -1104,13 +1104,43 @@ require('lazy').setup({
 
   {
     'mfussenegger/nvim-dap',
-    config = function()
-      local dap = require 'dap'
-      vim.keymap.set('n', '<C-Down>', dap.step_over)
-      vim.keymap.set('n', '<C-Right>', dap.step_into)
-      vim.keymap.set('n', '<C-Left>', dap.step_out)
-      vim.keymap.set('n', '<C-Up>', dap.restart_frame)
-    end,
+    keys = {
+      {
+        '<F5>',
+        function()
+          require('dap').continue()
+        end,
+        desc = 'Debug: Start/Continue',
+      },
+      {
+        '<C-Right>',
+        function()
+          require('dap').step_into()
+        end,
+        desc = 'Debug: Step Into',
+      },
+      {
+        '<C-Down>',
+        function()
+          require('dap').step_over()
+        end,
+        desc = 'Debug: Step Over',
+      },
+      {
+        '<C-Left>',
+        function()
+          require('dap').step_out()
+        end,
+        desc = 'Debug: Step Out',
+      },
+      {
+        '<leader>b',
+        function()
+          require('dap').toggle_breakpoint()
+        end,
+        desc = 'Debug: Toggle Breakpoint',
+      },
+    },
   },
   {
     'mfussenegger/nvim-dap-python',
