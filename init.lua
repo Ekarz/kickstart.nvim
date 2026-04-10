@@ -296,6 +296,23 @@ require('lazy').setup({
           vim.keymap.set(mode, l, r, opts)
         end
 
+        -- Navigation
+        map('n', '<leader>gn', function()
+          if vim.wo.diff then
+            vim.cmd.normal { ']c', bang = true }
+          else
+            gitsigns.nav_hunk 'next'
+          end
+        end, { desc = 'Jump to [n]ext [g]it change' })
+
+        map('n', '<leader>gp', function()
+          if vim.wo.diff then
+            vim.cmd.normal { '[c', bang = true }
+          else
+            gitsigns.nav_hunk 'prev'
+          end
+        end, { desc = 'Jump to [p]revious [g]it change' })
+
         map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = '[T]oggle Current Line Git [B]lame' })
         map('n', '<leader>gb', gitsigns.blame, { desc = '[G]it [B]lame' })
         map('n', '<leader>gd', gitsigns.diffthis, { desc = '[G]it [D]iff this' })
