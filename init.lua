@@ -1175,6 +1175,7 @@ require('lazy').setup({
       'nvim-treesitter/nvim-treesitter',
       'nvim-neotest/neotest-python',
       'nvim-neotest/neotest-jest',
+      'rouge8/neotest-rust',
     },
     config = function()
       require('neotest').setup {
@@ -1183,6 +1184,7 @@ require('lazy').setup({
             args = { '-vv' },
           },
           require 'neotest-jest',
+          require 'neotest-rust',
         },
       }
 
