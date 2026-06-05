@@ -414,6 +414,7 @@ require('lazy').setup({
         { '<leader>g', group = '[G]it' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
         { '<leader>e', group = 'Trees', mode = { 'n', 'v' } },
+        { '<leader>9', group = '99', mode = { 'n', 'v' } },
       },
     },
   },
@@ -526,6 +527,63 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sn', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = '[S]earch [N]eovim files' })
+    end,
+  },
+
+  {
+    'ThePrimeagen/99',
+    config = function()
+      local _99 = require '99'
+
+      -- For logging that is to a file if you wish to trace through requests
+      -- for reporting bugs, i would not rely on this, but instead the provided
+      -- logging mechanisms within 99.  This is for more debugging purposes
+      _99.setup {
+        provider = _99.Providers.ClaudeCodeProvider, -- default: OpenCodeProvider
+        -- When setting this to something that is not inside the CWD tools
+        -- such as claude code or opencode will have permission issues
+        -- and generation will fail refer to tool documentation to resolve
+        -- https://opencode.ai/docs/permissions/#external-directories
+        -- https://code.claude.com/docs/en/permissions#read-and-edit
+        tmp_dir = vim.uv.cwd() .. '/tmp',
+
+        --- WARNING: if you change cwd then this is likely broken
+        --- ill likely fix this in a later change
+        ---
+        --- md_files is a list of files to look for and auto add based on the location
+        --- of the originating request.  That means if you are at /foo/bar/baz.lua
+        --- the system will automagically look for:
+        --- /foo/bar/AGENT.md
+        --- /foo/AGENT.md
+        --- assuming that /foo is project root (based on cwd)
+        md_files = {
+          'AGENT.md',
+        },
+      }
+
+      -- take extra note that i have visual selection only in v mode
+      -- technically whatever your last visual selection is, will be used
+      -- so i have this set to visual mode so i dont screw up and use an
+      -- old visual selection
+      --
+      -- likely ill add a mode check and assert on required visual mode
+      -- so just prepare for it now
+      vim.keymap.set('v', '<leader>9v', function()
+        _99.visual()
+      end, { desc = '99: Apply prompt on [V]isual selection' })
+
+      --- if you have a request you dont want to make any changes, just cancel it
+      vim.keymap.set('n', '<leader>9x', function()
+        _99.stop_all_requests()
+      end, { desc = '99: Stop all requests' })
+
+      vim.keymap.set('n', '<leader>9s', function()
+        _99.search()
+      end, { desc = '99: [S]earch' })
+
+      vim.keymap.set('n', '<leader>9m', function()
+        require('99.extensions.telescope').select_model()
+      end, { desc = '99: Select [M]odel' })
     end,
   },
 
