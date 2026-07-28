@@ -316,6 +316,7 @@ require('lazy').setup({
         map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = '[T]oggle Current Line Git [B]lame' })
         map('n', '<leader>gb', gitsigns.blame, { desc = '[G]it [B]lame' })
         map('n', '<leader>gd', gitsigns.diffthis, { desc = '[G]it [D]iff this' })
+        map('n', '<leader>gr', gitsigns.reset_hunk, { desc = '[G]it [R]eset hunk' })
       end,
     },
   },
