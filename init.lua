@@ -416,6 +416,7 @@ require('lazy').setup({
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
         { '<leader>e', group = 'Trees', mode = { 'n', 'v' } },
         { '<leader>9', group = '99', mode = { 'n', 'v' } },
+        { '<leader>d', group = '[D]iffView' },
       },
     },
   },
