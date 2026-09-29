@@ -209,6 +209,29 @@ vim.keymap.set('n', '<C-j>', '<cmd>cnext<CR>')
 vim.keymap.set('n', '<C-k>', '<cmd>cprev<CR>')
 vim.keymap.set('n', '<C-q>', '<cmd>cclose<CR>')
 
+function _G.short_tabline()
+  local s = ''
+  for tab = 1, vim.fn.tabpagenr '$' do
+    local bufs = vim.fn.tabpagebuflist(tab)
+    local kind
+    for _, buf in ipairs(bufs) do
+      local name = vim.api.nvim_buf_get_name(buf)
+      if name:match 'DiffviewFileHistoryPanel$' then
+        kind = 'History'
+      elseif name:match 'DiffviewFilePanel$' then
+        kind = 'Diff'
+      end
+    end
+    local name = vim.api.nvim_buf_get_name(bufs[vim.fn.tabpagewinnr(tab)])
+    local file = name:match 'Diffview%a*Panel$' and '' or vim.fn.fnamemodify(name, ':t')
+    local label = kind and (file ~= '' and kind .. ': ' .. file or kind) or (file ~= '' and file or '[No Name]')
+    local hl = tab == vim.fn.tabpagenr() and '%#TabLineSel#' or '%#TabLine#'
+    s = s .. hl .. '%' .. tab .. 'T ' .. tab .. ' ' .. label .. ' '
+  end
+  return s .. '%#TabLineFill#%T'
+end
+vim.o.tabline = '%!v:lua.short_tabline()'
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
