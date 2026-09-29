@@ -209,6 +209,11 @@ vim.keymap.set('n', '<C-j>', '<cmd>cnext<CR>')
 vim.keymap.set('n', '<C-k>', '<cmd>cprev<CR>')
 vim.keymap.set('n', '<C-q>', '<cmd>cclose<CR>')
 
+vim.keymap.set('n', '<C-t>c', '<cmd>tabc<CR>')
+vim.keymap.set('n', '<C-t><C-c>', '<cmd>tabc<CR>')
+vim.keymap.set('n', '<C-t>o', '<cmd>tabo<CR>')
+vim.keymap.set('n', '<C-t><C-o>', '<cmd>tabo<CR>')
+
 function _G.short_tabline()
   local s = ''
   for tab = 1, vim.fn.tabpagenr '$' do
