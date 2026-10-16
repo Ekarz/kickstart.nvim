@@ -15,6 +15,7 @@ return {
   },
   opts = {
     filesystem = {
+      follow_current_file = { enabled = true },
       window = {
         mappings = {
           ['\\'] = 'close_window',
@@ -22,7 +23,8 @@ return {
       },
     },
   },
-  config = function()
+  config = function(_, opts)
+    require('neo-tree').setup(opts)
     vim.keymap.set('n', '<leader>eb', '<Cmd>Neotree buffers<CR>', { desc = 'Buffers' })
     vim.keymap.set('n', '<leader>ee', '<Cmd>Neotree filesystem left toggle reveal<CR>', { desc = 'Tree' })
     vim.keymap.set('n', '<leader>es', '<Cmd>Neotree git_status float<CR>', { desc = 'Git Status' })
